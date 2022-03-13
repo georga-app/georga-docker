@@ -28,9 +28,21 @@ Copy `.env` example file:
 
     cp .env.example .env
 
+Create JWT certs in `./server/keys/`:
+
+    ./server/scripts/generate_jwt_certs.sh
+
 Build docker images:
 
     docker compose build
+
+Migrate database:
+
+    docker compose run --rm server ./manage.py migrate
+
+Load demo data:
+
+    docker compose run --rm server bash -c "./manage.py loaddata georga/initial_data/*"
 
 ## Run
 
@@ -55,23 +67,26 @@ Delete database:
 
 ## Update
 
-Pull all changes in this repo
+1. Pull changes in this repo
 
     git pull
 
-Pull all changes in the submodules
+2. Pull changes in the submodules
 
     git submodule update --remote --merge
 
-If `requirements.txt` has changed, rebuild docker images:
+3. If `requirements.txt` has changed, rebuild docker images:
 
     docker compose build
 
-If database structure has changed, delete database:
+4. If database structure has changed, delete database and reload demo data:
 
+    docker compose down
     sudo rm -rf volumes/database
+    docker compose run --rm server ./manage.py migrate
+    docker compose run --rm server bash -c "./manage.py loaddata georga/initial_data/*"
 
-Run tests and commit changes to submodules:
+5. Run tests and commit changes to submodules:
 
     git add server
     git commit -m "updates submodules"
