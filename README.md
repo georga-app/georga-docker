@@ -48,6 +48,11 @@ Open mailhog:
 
     xdg-open georga.test:8025
 
+Delete database:
+
+    docker compose down
+    sudo rm -rf volumes/database
+
 ## Update
 
 Pull all changes in this repo
@@ -58,3 +63,16 @@ Pull all changes in the submodules
 
     git submodule update --remote --merge
 
+If `requirements.txt` has changed, rebuild docker images:
+
+    docker compose build
+
+If database structure has changed, delete database:
+
+    sudo rm -rf volumes/database
+
+Run tests and commit changes to submodules:
+
+    git add server
+    git commit -m "updates submodules"
+    git push
