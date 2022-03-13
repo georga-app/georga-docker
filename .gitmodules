@@ -1,0 +1,4 @@
+[submodule "georga-server-django"]
+	path = server
+	url = git@github.com:georga-app/georga-server-django.git
+	branch = main

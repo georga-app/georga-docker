@@ -1,0 +1,77 @@
+version: '3.9'
+
+networks:
+  backend:
+  frontend:
+
+services:
+
+  database:
+    image: postgres
+    volumes:
+      - ./volumes/database:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: pg_isready -U $$POSTGRES_USER
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      POSTGRES_NAME: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    networks:
+      - backend
+
+  server:
+    build: ./server
+    command: /code/scripts/startup.sh
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - backend
+      - frontend
+    ports:
+      - "127.0.0.1:80:8000"
+    volumes:
+      - ./server:/code
+    environment:
+      DJANGO_DATABASE_ENGINE: ${DJANGO_DATABASE_ENGINE}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      DJANGO_DEBUG: ${DJANGO_DEBUG}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
+      DJANGO_PHONENUMBER_DEFAULT_REGION: ${DJANGO_PHONENUMBER_DEFAULT_REGION}
+      DJANGO_PHONENUMBER_DEFAULT_FORMAT: ${DJANGO_PHONENUMBER_DEFAULT_FORMAT}
+      DJANGO_EMAIL_HOST: ${DJANGO_EMAIL_HOST}
+      DJANGO_EMAIL_PORT: ${DJANGO_EMAIL_PORT}
+      DJANGO_EMAIL_USE_TLS: ${DJANGO_EMAIL_USE_TLS}
+      DJANGO_EMAIL_HOST_USER: ${DJANGO_EMAIL_HOST_USER}
+      DJANGO_EMAIL_HOST_PASSWORD: ${DJANGO_EMAIL_HOST_PASSWORD}
+      DJANGO_EMAIL_SENDER: ${DJANGO_EMAIL_SENDER}
+      DJANGO_JWT_PRIVATE_KEY: ${DJANGO_JWT_PRIVATE_KEY}
+      DJANGO_JWT_PUBLIC_KEY: ${DJANGO_JWT_PUBLIC_KEY}
+      DJANGO_ACTIVATION_URL: ${DJANGO_ACTIVATION_URL}
+      DJANGO_ACCOUNT_ACTIVATION_DAYS: ${DJANGO_ACCOUNT_ACTIVATION_DAYS}
+      DJANGO_PASSWORD_URL: ${DJANGO_PASSWORD_URL}
+      DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME}
+      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
+      PYTHONUNBUFFERED: 1
+      PYTHONDONTWRITEBYTECODE: 1
+
+  mailhog:
+    image: mailhog/mailhog
+    entrypoint: ["/bin/sh", "-c", "MailHog &>/dev/null"]
+    networks:
+      - frontend
+    ports:
+      - 127.0.0.1:8025:8025
+    logging:
+      driver: none
+
