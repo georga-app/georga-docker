@@ -50,11 +50,11 @@ Open mailhog:
 
 ## Update
 
-Pull all changes in the repo and submodules
+Pull all changes in this repo
 
-    git pull --recurse-submodules
+    git pull
 
 Pull all changes in the submodules
 
-    git submodule update --remote
+    git submodule update --remote --merge
 
