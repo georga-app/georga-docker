@@ -81,25 +81,25 @@ Delete database:
 
 1. Pull changes in this repo
 
-    git pull
+       git pull
 
 2. Pull changes in the submodules
 
-    git submodule update --remote --merge
+       git submodule update --remote --merge
 
 3. If `requirements.txt` has changed, rebuild docker images:
 
-    docker compose build
+       docker compose build
 
 4. If database structure has changed, delete database and reload demo data:
 
-    docker compose down
-    sudo rm -rf volumes/database
-    docker compose run --rm server ./manage.py migrate
-    docker compose run --rm server bash -c "./manage.py loaddata georga/initial_data/*"
+       docker compose down
+       sudo rm -rf volumes/database
+       docker compose run --rm server ./manage.py migrate
+       docker compose run --rm server bash -c "./manage.py loaddata georga/initial_data/*"
 
 5. Run tests and commit changes to submodules:
 
-    git add server
-    git commit -m "updates submodules"
-    git push
+       git add server
+       git commit -m "updates submodules"
+       git push
