@@ -11,7 +11,7 @@ services:
     volumes:
       - ./volumes/database:/var/lib/postgresql/data
     ports:
-      - "127.0.0.1:5432:5432"
+      - "${DOCKER_PORTMAP_IP}:${DOCKER_PORTMAP_PORT_DATABASE}:5432"
     healthcheck:
       test: pg_isready -U $$POSTGRES_USER
       interval: 10s
@@ -34,7 +34,7 @@ services:
       - backend
       - frontend
     ports:
-      - "127.0.0.1:80:8000"
+      - "${DOCKER_PORTMAP_IP}:${DOCKER_PORTMAP_PORT_SERVER}:8000"
     volumes:
       - ./server:/code
     environment:
@@ -71,7 +71,7 @@ services:
     networks:
       - frontend
     ports:
-      - 127.0.0.1:8025:8025
+      - "${DOCKER_PORTMAP_IP}:${DOCKER_PORTMAP_PORT_MAILHOG}:8025"
     logging:
       driver: none
 
