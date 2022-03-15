@@ -2,7 +2,7 @@
 
 Docker Setup for Geographical Ressources & Groups App.
 
-## Prereqisites
+## Prerequisites
 
 Install Docker and add user to group:
 
