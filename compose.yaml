@@ -65,6 +65,20 @@ services:
       PYTHONUNBUFFERED: 1
       PYTHONDONTWRITEBYTECODE: 1
 
+  client-react:
+    build: ./client-react
+    command: npm start
+    depends_on:
+      server:
+        condition: service_started
+    networks:
+      - frontend
+    ports:
+      - "${DOCKER_PORTMAP_IP}:${DOCKER_PORTMAP_PORT_CLIENT_REACT}:3000"
+    volumes:
+      - ./client-react:/code
+      - /code/node_modules
+
   mailhog:
     image: mailhog/mailhog
     entrypoint: ["/bin/sh", "-c", "MailHog &>/dev/null"]
