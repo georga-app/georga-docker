@@ -32,6 +32,10 @@ Configure git user name/email/signing (optional):
     git config commit.gpgsign true
     git submodule foreach git config commit.gpgsign true
 
+Configure submodules to track the branch:
+
+    git submodule foreach 'git checkout main'
+
 Configure `/etc/hosts`:
 
     127.0.0.1   georga.test
