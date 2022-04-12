@@ -6,6 +6,13 @@ networks:
 
 services:
 
+  redis:
+    image: redis
+    ports:
+      - "${DOCKER_PORTMAP_IP}:${DOCKER_PORTMAP_PORT_REDIS}:6379"
+    networks:
+      - backend
+
   database:
     image: postgres
     volumes:
@@ -38,12 +45,14 @@ services:
     volumes:
       - ./server:/code
     environment:
-      DJANGO_DATABASE_ENGINE: ${DJANGO_DATABASE_ENGINE}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_PORT: ${DATABASE_PORT}
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DJANGO_DATABASE_ENGINE: ${DJANGO_DATABASE_ENGINE}
       DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
       DJANGO_DEBUG: ${DJANGO_DEBUG}
       DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS}
