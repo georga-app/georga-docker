@@ -89,6 +89,8 @@ services:
     volumes:
       - ./client-react:/code
       - /code/node_modules
+    environment:
+      REACT_APP_GRAPHQL_ENDPOINT: ${REACT_APP_GRAPHQL_ENDPOINT}
 
   mailhog:
     image: mailhog/mailhog
