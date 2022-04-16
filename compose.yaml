@@ -45,6 +45,7 @@ services:
     volumes:
       - ./server:/code
     environment:
+      DEBUG_PTVSD: ${DEBUG_PTVSD}
       REDIS_HOST: ${REDIS_HOST}
       REDIS_PORT: ${REDIS_PORT}
       DATABASE_HOST: ${DATABASE_HOST}
