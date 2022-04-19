@@ -72,6 +72,14 @@ Open django graphql interface:
 
     xdg-open georga.test/graphql
 
+Open django admin interface:
+
+    xdg-open georga.test/admin
+
+Open react client interface:
+
+    xdg-open georga.test:3000
+
 Open mailhog:
 
     xdg-open georga.test:8025
