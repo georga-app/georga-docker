@@ -6,3 +6,7 @@
 	path = client-react
 	url = git@github.com:georga-app/georga-client-react.git
 	branch = main
+[submodule "georga-client-solito"]
+	path = client-solito
+	url = git@github.com:georga-app/georga-client-solito.git
+	branch = main
