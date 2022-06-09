@@ -4,11 +4,13 @@ Docker Setup for Geographical Ressources & Groups App.
 
 ## Prerequisites
 
-Install Docker and add user to group:
+Install Python and add user to group:
 
-    sudo apt-get install docker docker-compose git python python-yaml
+    sudo apt-get install git python python3-yaml
     sudo usermod -aG docker $USER
     newgrp docker
+
+To install Docker, we recommend the current method you find on https://docs.docker.com/compose/install/ . Just trying ``sudo apt-get install docker docker-compose`` may lead to problems as the latest compose.yaml format may not be supported.
 
 Optionally install GnuPG to sign your git commits (recommended):
 
