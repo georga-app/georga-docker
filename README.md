@@ -112,7 +112,16 @@ Delete database:
        docker compose run --rm server ./manage.py migrate
        docker compose run --rm server bash -c "./manage.py loaddata georga/initial_data/*"
 
-5. Run tests and commit changes to submodules:
+5. Create and activate a Django superuser in a container bash to access the admin area of the web interface:
+
+        docker compose run --rm server bash
+        ./manage.py createsuperuser
+        from georga.models import Person
+        person = Person.objects.get(email="my@email.address")
+        person.is_active = True
+        person.save()
+
+6. Run tests and commit changes to submodules:
 
        git add server
        git commit -m "updates submodules"
