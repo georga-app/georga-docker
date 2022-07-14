@@ -112,7 +112,7 @@ Delete database:
        docker compose run --rm server ./manage.py migrate
        docker compose run --rm server bash -c "./manage.py loaddata georga/initial_data/*"
 
-5. Create and activate a Django superuser in a container bash to access the admin area of the web interface:
+5. If you for some reason want to omit step 4, you would have to create and activate a Django superuser in a container bash to access the admin area of the web interface:
 
         docker compose run --rm server bash
         ./manage.py createsuperuser
