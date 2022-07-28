@@ -1,6 +1,6 @@
 # Georga Docker
 
-Docker Setup for Geographical Ressources & Groups App.
+Docker Setup for Geographical Resources & Groups App.
 
 ## Prerequisites
 
