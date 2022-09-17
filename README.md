@@ -60,7 +60,7 @@ Migrate database:
 
 Load demo data:
 
-    docker compose run --rm server bash -c "./manage.py loaddata georga/initial_data/*"
+    docker compose run --rm server bash -c "./manage.py loaddata georga/fixtures/*"
 
 ## Run
 
@@ -110,7 +110,7 @@ Delete database:
        docker compose down
        sudo rm -rf volumes/database
        docker compose run --rm server ./manage.py migrate
-       docker compose run --rm server bash -c "./manage.py loaddata georga/initial_data/*"
+       docker compose run --rm server bash -c "./manage.py loaddata georga/fixtures/*"
 
 5. If you for some reason want to omit step 4, you would have to create and activate a Django superuser in a container bash to access the admin area of the web interface:
 
@@ -126,3 +126,9 @@ Delete database:
        git add server
        git commit -m "updates submodules"
        git push
+
+## Test
+
+Run django tests:
+
+    docker compose run --rm server ./manage.py test
