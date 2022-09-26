@@ -132,3 +132,5 @@ Delete database:
 Run django tests:
 
     docker compose run --rm server ./manage.py test
+    docker compose run --rm server ./manage.py test \
+        --verbosity 2 --failfast --timing --keepdb --parallel auto
