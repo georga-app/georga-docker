@@ -109,6 +109,7 @@ Delete database:
 
        docker compose down
        sudo rm -rf volumes/database
+       # if you made database changes yourself, enter this: docker compose run --rm server ./manage.py makemigrations
        docker compose run --rm server ./manage.py migrate
        docker compose run --rm server bash -c "./manage.py loaddata georga/fixtures/*"
 
