@@ -83,7 +83,7 @@ services:
 
   client-react:
     build: ./client-react
-    command: npm start
+    command: sh -c 'npm run build && npm run start'
     depends_on:
       server:
         condition: service_started
@@ -95,8 +95,9 @@ services:
       - ./client-react:/code
       - /code/node_modules
     environment:
-      REACT_APP_GRAPHQL_HTTP_ENDPOINT: ${REACT_APP_GRAPHQL_HTTP_ENDPOINT}
-      REACT_APP_GRAPHQL_WS_ENDPOINT: ${REACT_APP_GRAPHQL_WS_ENDPOINT}
+      NEXT_TELEMETRY_DISABLED: 1
+      NEXT_PUBLIC_GRAPHQL_HTTP_ENDPOINT: ${REACT_APP_GRAPHQL_HTTP_ENDPOINT}
+      NEXT_PUBLIC_GRAPHQL_WS_ENDPOINT: ${REACT_APP_GRAPHQL_WS_ENDPOINT}
 
   mailhog:
     image: mailhog/mailhog
