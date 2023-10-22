@@ -62,6 +62,15 @@ Load demo data:
 
     docker compose run --rm server bash -c "./manage.py loaddata georga/fixtures/*"
 
+If you don't want to load the demo data, create and activate a Django superuser instead:
+
+    docker compose run --rm server bash
+    > ./manage.py createsuperuser
+    > from georga.models import Person
+    > person = Person.objects.get(email="my@email.address")
+    > person.is_active = True
+    > person.save()
+
 ## Run
 
 Run all docker services:
@@ -113,16 +122,7 @@ Delete database:
        docker compose run --rm server ./manage.py migrate
        docker compose run --rm server bash -c "./manage.py loaddata georga/fixtures/*"
 
-5. If you for some reason want to omit step 4, you would have to create and activate a Django superuser in a container bash to access the admin area of the web interface:
-
-        docker compose run --rm server bash
-        ./manage.py createsuperuser
-        from georga.models import Person
-        person = Person.objects.get(email="my@email.address")
-        person.is_active = True
-        person.save()
-
-6. Run tests and commit changes to submodules:
+5. Run tests and commit changes to submodules:
 
        git add server
        git commit -m "updates submodules"
