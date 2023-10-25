@@ -34,9 +34,10 @@ Configure git user name/email/signing (optional):
     git config commit.gpgsign true
     git submodule foreach git config commit.gpgsign true
 
-Configure submodules to track the branch:
+Configure submodules to track the branch and being pullt along with the main repo:
 
     git submodule foreach 'git checkout main'
+    git config recurse.submodules true
 
 Configure `/etc/hosts`:
 
